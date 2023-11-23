@@ -225,7 +225,7 @@ class DispatchCenter():
             wait(block_hash)
 
 with open(args.config) as f:
-    config = yaml.load(f)
+    config = yaml.load(f, Loader=yaml.FullLoader)
 
 
 def init_client(host_name, host_config):
