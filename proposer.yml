@@ -5,8 +5,9 @@ services:
     build: ./proposerImage
     command: ["--config", "/proposer_config.yml"]
     volumes:
-      - .resources/nil.rho:/nil.rho
-      - .resources/proposer_config.yml:/proposer_config.yml
+      - ./resources/nil.rho:/nil.rho
+      - ./resources/hello_world_again.rho:/hello_world_again.rho
+      - ./resources/proposer_config.yml:/proposer_config.yml
     networks:
       - rchain-net
 networks:
