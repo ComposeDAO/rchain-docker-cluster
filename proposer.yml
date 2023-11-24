@@ -9,6 +9,7 @@ services:
       - ./resources/hello_world_again.rho:/hello_world_again.rho
       - ./resources/simpleInsertTest.rho:/simpleInsertTest.rho
       - ./resources/simpleLookupTest.rho:/simpleLoopupTest.rho
+      - ./resources/simpleInsertLookup.rho:/simpleInsertLookup.rho
       - ./resources/proposer_config.yml:/proposer_config.yml
     networks:
       - rchain-net
