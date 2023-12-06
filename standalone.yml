@@ -1,7 +1,7 @@
 version: "3.4"
 
 x-rnode: &default-rnode
-  image: rchain/rnode:latest
+  image: coop.rchain/rnode:0.0.1-76-gb0b3545
   user: root
   networks:
     - rchain-net
