@@ -2,7 +2,7 @@ version: "3.3"
 
 services:
   propose:
-    image: coop.rchain/rnode:latest
+    build: ./proposerImage
     command: ["--config", "/proposer_config.yml"]
     volumes:
       - ./resources/nil.rho:/nil.rho
