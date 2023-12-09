@@ -49,6 +49,8 @@ loop = asyncio.get_event_loop()
 parser = ArgumentParser(description="In turn propose script")
 parser.add_argument("-c", "--config-file", action="store", type=str, required=True, dest="config",
                     help="the config file of the script")
+parser.add_argument("-f", "--contract-files", nargs='+', required=True, dest="contracts",
+                    help="the contract files to be deployed")
 
 args = parser.parse_args()
 
@@ -104,9 +106,11 @@ class DispatchCenter():
             for host_name, host_config in server.items():
                 self.clients[host_name] = init_client(host_name, host_config)
 
-        logging.info("Read the deploying contract {}".format(config['deploy']['contract']))
-        with open(config['deploy']['contract']) as f:
-            self.contract = f.read()
+        self.contracts = []
+        for contract_path in args.contracts:
+            logging.info("Read the deploying contract {}".format(contract_path))
+            with open(contract_path) as f:
+                self.contracts.append(f.read())
         logging.info("Checking if deploy key is valid.")
         self.deploy_key = PrivateKey.from_hex(config['deploy']['deploy_key'])
 
@@ -133,7 +137,8 @@ class DispatchCenter():
         client = self.clients[current_server]
         try:
             self.queue.append(current_server)
-            block_hash = client.deploy_and_propose(self.deploy_key, self.contract, self.phlo_price, self.phlo_limit)
+            for contract in self.contracts:
+                block_hash = client.deploy_and_propose(self.deploy_key, contract, self.phlo_price, self.phlo_limit)
             logging.info("Successfully deploy and propose {} in {}".format(block_hash, current_server))
             return block_hash
         except Exception as e:
