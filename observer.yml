@@ -1,7 +1,7 @@
 version: "3.3"
 services:
   readonly:
-    image: coop.rchain/rnode:latest
+    image: rnode-liblmdb-dev
     user: root
     networks:
       - rchain-net
